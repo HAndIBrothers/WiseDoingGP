@@ -8,19 +8,35 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.w3c.dom.Text
 import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.concurrent.scheduleAtFixedRate
+/* [AdMob][TestKey:on] */
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
     /* Current GP 010 ER 000 */
 
+    /* 2019-06-03 */
+    /* [AdMob][TestKey:on] */
+    lateinit var mAdView : AdView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /* 2019-06-03 */// Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        /* [AdMob][TestKey:on] */
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713")
+        /* [AdMob][TestKey:on] */
+        mAdView = findViewById(R.id.adView)
+        val adRequest =  AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         // 여기서부터 코딩
         val txtWise = findViewById<TextView>(R.id.txtWise) // [activity_main] txtWise 텍스트 뷰를 가져오는 변수 txtWise
