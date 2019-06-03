@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         clsWise[31] = ClassWise(thisWord = "천사는 아름다운 꽃을 퍼뜨리는 사람이 아니라, 고뇌하는 사람을 위해 싸우는 사람일 것이다.", thisPerson = "플로렌스 나이팅게일", thisCategory = 1)
         clsWise[32] = ClassWise(thisWord = "당신이 포기할 때, 나는 시작한다.", thisPerson = "엘론 머스크", thisCategory = 0)
         clsWise[33] = ClassWise(thisWord = "내가 상대를 믿는 것과, 상대가 나를 배신하는 것은 아무런 관계도 없었던 거야.", thisPerson = "마윈", thisCategory = 1)
-        clsWise[34] = ClassWise(thisWord = "42", thisPerson = "(은하수를 여행하는 히치하이커를 위한 안내서) 깊은 생각", thisCategory = 2)
+        clsWise[34] = ClassWise(thisWord = "42", thisPerson = "(은하수를 여행하는 히치하이커를 위한 안내서)\n깊은 생각", thisCategory = 2)
         clsWise[35] = ClassWise(thisWord = "웃음이 없는 하루는 버린 하루다.", thisPerson = "찰리 채플린", thisCategory = 1)
         clsWise[36] = ClassWise(thisWord = "내 사전에 불가능은 없다.", thisPerson = "나폴레옹 보나파르트", thisCategory = 1)
         clsWise[37] = ClassWise(thisWord = "너는 머뭇거릴 수 있지만, 시간은 그렇지 않다.", thisPerson = "벤자민 프랭클린", thisCategory = 0)
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         fun fncChangeWise() {
             var thisRandom = Random().nextInt(clsWiseSize) // [here:fncChangeWise] 명언 번호를 무작위로 뽑기 위한 Int 변수 thisRandom
             txtWise.text = clsWise[thisRandom]?.word
-            txtPerson.text = clsWise[thisRandom]?.person
+            txtPerson.text = "by "+ clsWise[thisRandom]?.person
             Log.d("wiseDGP", "[gp002][MainActivity][here:fncChangeWise] 명언 변환")
         }
         fncChangeWise()
