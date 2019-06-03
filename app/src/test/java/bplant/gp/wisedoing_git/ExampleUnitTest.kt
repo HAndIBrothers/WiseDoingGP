@@ -1,4 +1,4 @@
-package bplant.gp.wisedoing
+package bplant.gp.wisedoing_git
 
 import org.junit.Test
 

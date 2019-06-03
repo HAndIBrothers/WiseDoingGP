@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="bplant.gp.wisedoing">
+          package="bplant.gp.wisedoing_git">
 
     <application
             android:allowBackup="true"
@@ -14,7 +14,7 @@
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="ca-app-pub-3940256099942544~3347511713"/>
 
-        <activity android:name=".MainActivity"
+        <activity android:name="bplant.gp.wisedoing_git.MainActivity"
                     android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

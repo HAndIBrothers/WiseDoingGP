@@ -1,4 +1,4 @@
-package bplant.gp.wisedoing
+package bplant.gp.wisedoing_git
 
 class ClassWise(thisWord:String, thisPerson:String, thisCategory:Int) {
     var word : String = thisWord

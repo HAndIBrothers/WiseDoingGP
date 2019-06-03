@@ -1,4 +1,4 @@
-package bplant.gp.wisedoing
+package bplant.gp.wisedoing_git
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
