@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val txtDebug = findViewById<TextView>(R.id.txtDebug) // [activity_main] txtDebug 텍스트 뷰를 가져오는 변수 txtDebug
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
-        val clsWiseSize = 35 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
+        val clsWiseSize = 40 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
         var clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[0] = ClassWise(thisWord = "살아있으면 뭐라도 해야 하는 거니까.", thisPerson = "(육룡이 나르샤) 분이", thisCategory = 0)
         clsWise[1] = ClassWise(thisWord = "처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다.\n 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.", thisPerson = "한명회", thisCategory = 0)
@@ -79,6 +79,11 @@ class MainActivity : AppCompatActivity() {
         clsWise[32] = ClassWise(thisWord = "당신이 포기할 때, 나는 시작한다.", thisPerson = "엘론 머스크", thisCategory = 0)
         clsWise[33] = ClassWise(thisWord = "내가 상대를 믿는 것과, 상대가 나를 배신하는 것은 아무런 관계도 없었던 거야.", thisPerson = "마윈", thisCategory = 1)
         clsWise[34] = ClassWise(thisWord = "42", thisPerson = "(은하수를 여행하는 히치하이커를 위한 안내서) 깊은 생각", thisCategory = 2)
+        clsWise[35] = ClassWise(thisWord = "웃음이 없는 하루는 버린 하루다.", thisPerson = "찰리 채플린", thisCategory = 1)
+        clsWise[36] = ClassWise(thisWord = "내 사전에 불가능은 없다.", thisPerson = "나폴레옹 보나파르트", thisCategory = 1)
+        clsWise[37] = ClassWise(thisWord = "너는 머뭇거릴 수 있지만, 시간은 그렇지 않다.", thisPerson = "벤자민 프랭클린", thisCategory = 0)
+        clsWise[38] = ClassWise(thisWord = "오늘 나무 그늘에서 쉴 수 있는 이유는, 예전에 나무를 심었기 때문이다.", thisPerson = "워렌 버핏", thisCategory = 0)
+        clsWise[39] = ClassWise(thisWord = "네가 누구인지, 무엇인지 말해줄 사람은 필요 없다.\n너는 그냥 너 자신일 뿐이다.", thisPerson = "존 레논", thisCategory = 2)
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 
         fun fncChangeWise() {
