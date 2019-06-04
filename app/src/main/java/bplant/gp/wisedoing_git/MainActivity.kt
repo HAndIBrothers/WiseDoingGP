@@ -1,5 +1,6 @@
 package bplant.gp.wisedoing_git
 
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorSpace
@@ -20,7 +21,7 @@ import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
-    /* Current GP 010 ER 001 */
+    /* Current GP 015 ER 001 */
 
     /* 2019-06-03 */
     /* [AdMob][TestKey:on] */
@@ -243,77 +244,95 @@ class MainActivity : AppCompatActivity() {
                 tmpView == btnWiseLove -> btnWiseLove.setBackgroundColor(Color.rgb(255, 50, 50))
             }
         }
-        fncViewChanger(btnWiseAll)
+
+        /* 2019-06-04 */
+        /* Save & Load Category */
+        var prfCategory = this.getPreferences(0)
+        var savCategory = prfCategory.edit()
+        var savCategoryNumber = prfCategory.getInt("currentCategory", 999)
 
         /* 2019-06-04 */
         /* Category Click */
         btnWiseAll.setOnClickListener(
             View.OnClickListener {
-                btnWiseAll.setBackgroundColor(Color.BLACK)
                 chkWise = clsWise
                 chkWiseSize = clsWiseSize
                 fncChangeWise(chkWise, chkWiseSize)
 
                 fncViewChanger(btnWiseAll)
+                savCategory.putInt("currentCategory", 999).apply()
 
                 Log.d("wiseDGP", "[gp011][MainActivity][here:Category Click] btnWiseAll 클릭")
             }
         )
         btnWiseGrowth.setOnClickListener(
             View.OnClickListener {
-                btnWiseGrowth.setBackgroundColor(Color.BLACK)
                 chkWise = clsCategoryGrowth
                 chkWiseSize = clsCategorySize[0]
                 fncChangeWise(chkWise, chkWiseSize)
 
                 fncViewChanger(btnWiseGrowth)
+                savCategory.putInt("currentCategory", 0).apply()
 
                 Log.d("wiseDGP", "[gp012][MainActivity][here:Category Click] btnWiseGrowth 클릭")
             }
         )
         btnWiseAttitude.setOnClickListener(
             View.OnClickListener {
-                btnWiseAttitude.setBackgroundColor(Color.BLACK)
                 chkWise = clsCategoryAttitude
                 chkWiseSize = clsCategorySize[1]
                 fncChangeWise(chkWise, chkWiseSize)
 
                 fncViewChanger(btnWiseAttitude)
+                savCategory.putInt("currentCategory", 1).apply()
 
                 Log.d("wiseDGP", "[gp013][MainActivity][here:Category Click] btnWiseAttitude 클릭")
             }
         )
         btnWiseHealing.setOnClickListener(
             View.OnClickListener {
-                btnWiseHealing.setBackgroundColor(Color.BLACK)
                 chkWise = clsCategoryHealing
                 chkWiseSize = clsCategorySize[2]
                 fncChangeWise(chkWise, chkWiseSize)
 
                 fncViewChanger(btnWiseHealing)
+                savCategory.putInt("currentCategory", 2).apply()
 
                 Log.d("wiseDGP", "[gp014][MainActivity][here:Category Click] btnWiseHealing 클릭")
             }
         )
         btnWiseLove.setOnClickListener(
             View.OnClickListener {
-                btnWiseLove.setBackgroundColor(Color.BLACK)
                 chkWise = clsCategoryLove
                 chkWiseSize = clsCategorySize[3]
                 fncChangeWise(chkWise, chkWiseSize)
 
                 fncViewChanger(btnWiseLove)
+                savCategory.putInt("currentCategory", 3).apply()
 
                 Log.d("wiseDGP", "[gp015][MainActivity][here:Category Click] btnWiseLove 클릭")
             }
         )
-        
+
+        /* 2019-06-04 */
+        /* Save & Load Category */
+        Log.d("wiseDGP", "[gp016][MainActivity][here:Category Click] 'currentCategory' $savCategoryNumber 로드")
+        when(savCategoryNumber) {
+            999 -> btnWiseAll.performClick()
+            0 -> btnWiseGrowth.performClick()
+            1 -> btnWiseAttitude.performClick()
+            2 -> btnWiseHealing.performClick()
+            3 -> btnWiseLove.performClick()
+        }
+
+        /* Debug */
+        /*
         btnChangeWise.setOnClickListener(
             View.OnClickListener {
                 fncChangeWise(clsWise, clsWiseSize)
                 Log.d("wiseDGP", "[gp006][MainActivity][here:btnChangeWise.setOnClickListener] btnChangeWise 클릭")
             }
         )
-
+        */
     }
 }
