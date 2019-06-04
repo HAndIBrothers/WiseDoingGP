@@ -1,9 +1,11 @@
 package bplant.gp.wisedoing_git
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         val txtDebug = findViewById<TextView>(R.id.txtDebug) // [activity_main] txtDebug 텍스트 뷰를 가져오는 변수 txtDebug
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
-        val clsWiseSize = 40 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
+        val clsWiseSize = 45 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
         var clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[0] = ClassWise(thisWord = "살아있으면 뭐라도 해야 하는 거니까.", thisPerson = "(육룡이 나르샤) 분이", thisCategory = 0)
         clsWise[1] = ClassWise(thisWord = "처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다.\n 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.", thisPerson = "한명회", thisCategory = 0)
@@ -84,26 +86,33 @@ class MainActivity : AppCompatActivity() {
         clsWise[37] = ClassWise(thisWord = "너는 머뭇거릴 수 있지만, 시간은 그렇지 않다.", thisPerson = "벤자민 프랭클린", thisCategory = 0)
         clsWise[38] = ClassWise(thisWord = "오늘 나무 그늘에서 쉴 수 있는 이유는, 예전에 나무를 심었기 때문이다.", thisPerson = "워렌 버핏", thisCategory = 0)
         clsWise[39] = ClassWise(thisWord = "네가 누구인지, 무엇인지 말해줄 사람은 필요 없다.\n너는 그냥 너 자신일 뿐이다.", thisPerson = "존 레논", thisCategory = 2)
+        clsWise[40] = ClassWise(thisWord = "인생에는 수많은 모순이 있지만 그것을 해결할 길은 사랑 뿐이다.", thisPerson = "레프 톨스토이", thisCategory = 3)
+        clsWise[41] = ClassWise(thisWord = "악담을 듣거나 혼난다면 기뻐하라.\n칭찬을 하면 마음을 가다듬어라.", thisPerson = "레프 톨스토이", thisCategory = 1)
+        clsWise[42] = ClassWise(thisWord = "우리는 가난을 칭송하지 않는다.\n다만 가난에 굴하지 않는 사람을 칭송할 뿐이다.", thisPerson = "레프 톨스토이", thisCategory = 0)
+        clsWise[43] = ClassWise(thisWord = "가장 유능한 자는 가장 배우려 하는 자이다.", thisPerson = "요한 볼프강 폰 괴테", thisCategory = 0)
+        clsWise[44] = ClassWise(thisWord = "오늘 가장 좋게 웃는 자는 분명 최후에도 웃을 것이다.", thisPerson = "프리드리히 니체", thisCategory = 1)
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 
-        fun fncChangeWise() {
-            var thisRandom = Random().nextInt(clsWiseSize) // [here:fncChangeWise] 명언 번호를 무작위로 뽑기 위한 Int 변수 thisRandom
-            txtWise.text = clsWise[thisRandom]?.word
-            txtPerson.text = "by "+ clsWise[thisRandom]?.person
+        fun fncChangeWise(tmpClass : Array<ClassWise?>, tmpSize : Int) {
+            var thisRandom = Random().nextInt(tmpSize) // [here:fncChangeWise] 명언 번호를 무작위로 뽑기 위한 Int 변수 thisRandom
+            txtWise.text = tmpClass[thisRandom]?.word
+            txtPerson.text = "by "+ tmpClass[thisRandom]?.person
             Log.d("wiseDGP", "[gp002][MainActivity][here:fncChangeWise] 명언 변환")
         }
-        fncChangeWise()
+        fncChangeWise(clsWise, clsWiseSize)
         Log.d("wiseDGP", "[gp003][MainActivity][here] 초기화면 명언 출력")
 
+        /* Repeat Play */
         val timer = Timer("SettingUp", false) // [here] 명언을 지정 시간(초)마다 부르기 위한 Timer 변수 timer
         var secTimer = 5 // [here] 지속적인 변경 시간(초)를 저장하기 위한 Int 변수 secTimer
         var secCurrent = 0 // [here] 현재 몇초를 지나고 있는지 저장하기 위한 Int 변수 secCurrent
         Log.d("wiseDGP", "[gp004][MainActivity][here] 명언 시간 반복 : $secTimer 초 지정")
+
         timer.scheduleAtFixedRate(delay = 1000, period = 1000) {
             secCurrent++
             if (secCurrent >= secTimer) {
                 secCurrent = 0
-                fncChangeWise()
+                fncChangeWise(clsWise, clsWiseSize)
                 /* Debug */
                 txtDebug.text = secCurrent.toString()
                 Log.d("wiseDGP", "[gp007][MainActivity][here:timer.scheduleAtFixedRate] secCurrent >= secTimer")
@@ -113,8 +122,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("wiseDGP", "[gp008][MainActivity][here:timer.scheduleAtFixedRate] secCurrent < secTimer")
             }
 
-            /*2019-06-02*/
-
+            /* Change Loading Image */
             if (secCurrent == 0) {
                 imgUnder.setImageResource(R.drawable.bnr_proto1_0)
                 Log.d("wiseDGP", "[gp009][MainActivity][here:timer.scheduleAtFixedRate] 명언이 바뀌었을 때(secCurrent 0일때) imgUnder 초기화")
@@ -135,9 +143,102 @@ class MainActivity : AppCompatActivity() {
             Log.d("wiseDGP", "[gp005][MainActivity][here:timer.scheduleAtFixedRate] 지정 시간 반복 실행")
         }
 
+        /* Category */
+        val btnWiseAll = findViewById<Button>(R.id.btnWiseAll)
+        val btnWiseGrowth = findViewById<Button>(R.id.btnWiseGrowth)
+        val btnWiseAttitude = findViewById<Button>(R.id.btnWiseAttitude)
+        val btnWiseHealing = findViewById<Button>(R.id.btnWiseHealing)
+        val btnWiseLove = findViewById<Button>(R.id.btnWiseLove)
+
+        var forTextWiseAll = "전체\n"
+        var forTextWiseGrowth = "발전\n"
+        var forTextWiseAttitude = "태도\n"
+        var forTextWiseHealing = "힐링\n"
+        var forTextWiseLove = "사랑\n"
+
+        /* Category Load : 전체 */
+        btnWiseAll.text = forTextWiseAll + "($clsWiseSize)"
+
+        /* Category Load : 그외 */
+        var tmpCategory = intArrayOf(0, 0, 0, 0)
+        for (i in 0..clsWiseSize) {
+            if(i < clsWiseSize){
+                when {
+                    clsWise[i]?.category == 0 -> tmpCategory[0]++
+                    clsWise[i]?.category == 1 -> tmpCategory[1]++
+                    clsWise[i]?.category == 2 -> tmpCategory[2]++
+                    clsWise[i]?.category == 3 -> tmpCategory[3]++
+                }
+            } else {
+            }
+        }
+        btnWiseGrowth.text = forTextWiseGrowth + "(" + tmpCategory[0] + ")"
+        btnWiseAttitude.text = forTextWiseAttitude+ "(" + tmpCategory[1] + ")"
+        btnWiseHealing.text = forTextWiseHealing + "(" + tmpCategory[2] + ")"
+        btnWiseLove.text = forTextWiseLove + "(" + tmpCategory[3] + ")"
+
+        /* Category Array */
+        var clsWiseGrowth = arrayOfNulls<ClassWise>(tmpCategory[0])
+        var clsWiseAttitude = arrayOfNulls<ClassWise>(tmpCategory[1])
+        var clsWiseHealing = arrayOfNulls<ClassWise>(tmpCategory[2])
+        var clsWiseLove = arrayOfNulls<ClassWise>(tmpCategory[3])
+        var tmpNumber = intArrayOf(0, 0, 0, 0)
+
+        for (i in 0..clsWiseSize) {
+            if (i < clsWiseSize) {
+                when {
+                    clsWise[i]?.category == 0 -> {
+                        clsWiseGrowth[tmpNumber[0]] = clsWise[i]
+                        tmpNumber[0]++
+                    }
+                    clsWise[i]?.category == 1 -> {
+                        clsWiseGrowth[tmpNumber[1]] = clsWise[i]
+                        tmpNumber[1]++
+                    }
+                    clsWise[i]?.category == 2 -> {
+                        clsWiseGrowth[tmpNumber[2]] = clsWise[i]
+                        tmpNumber[2]++
+                    }
+                    clsWise[i]?.category == 3 -> {
+                        clsWiseGrowth[tmpNumber[3]] = clsWise[i]
+                        tmpNumber[3]++
+                    }
+                    else -> Log.d("wiseDGP", "[er001][MainActivity][here:Category]")
+                }
+            } else {
+            }
+        }
+
+        /* Category Click 2019-06-04 */
+        btnWiseAll.setOnClickListener(
+            View.OnClickListener {
+                btnWiseAll.setBackgroundColor(Color.BLACK)
+            }
+        )
+        btnWiseGrowth.setOnClickListener(
+            View.OnClickListener {
+                btnWiseGrowth.setBackgroundColor(Color.BLACK)
+            }
+        )
+        btnWiseAttitude.setOnClickListener(
+            View.OnClickListener {
+                btnWiseAttitude.setBackgroundColor(Color.BLACK)
+            }
+        )
+        btnWiseHealing.setOnClickListener(
+            View.OnClickListener {
+                btnWiseHealing.setBackgroundColor(Color.BLACK)
+            }
+        )
+        btnWiseLove.setOnClickListener(
+            View.OnClickListener {
+                btnWiseLove.setBackgroundColor(Color.BLACK)
+            }
+        )
+        
         btnChangeWise.setOnClickListener(
             View.OnClickListener {
-                fncChangeWise()
+                fncChangeWise(clsWise, clsWiseSize)
                 Log.d("wiseDGP", "[gp006][MainActivity][here:btnChangeWise.setOnClickListener] btnChangeWise 클릭")
             }
         )

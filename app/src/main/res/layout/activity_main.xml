@@ -11,58 +11,76 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/btnWiseAll"
 
-            android:background="@color/colorPrimaryDark">
-        <TextView
-                android:layout_width="75dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:background="#e5e5e5"
 
-                android:text="ALL\n(0)"
+                android:text="전체\n(0)"
                 android:textSize="15dp"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
         />
-        <TextView
-                android:layout_width="75dp"
+        <Button
+                android:id="@+id/btnWiseGrowth"
+
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:background="#e5e5ff"
 
-                android:text="ALL\n(0)"
+                android:text="발전\n(0)"
                 android:textSize="15dp"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
         />
-        <TextView
-                android:layout_width="75dp"
+        <Button
+                android:id="@+id/btnWiseAttitude"
+
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:background="#ffffe5"
 
-                android:text="ALL\n(0)"
+                android:text="태도\n(0)"
                 android:textSize="15dp"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
         />
-        <TextView
-                android:layout_width="75dp"
+        <Button
+                android:id="@+id/btnWiseHealing"
+
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:background="#e5f2e5"
 
-                android:text="ALL\n(0)"
+                android:text="힐링\n(0)"
                 android:textSize="15dp"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
         />
-        <TextView
+        <Button
+                android:id="@+id/btnWiseLove"
+
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="#ffe5e5"
+
+                android:text="사랑\n(0)"
+                android:textSize="15dp"
+                android:textColor="#000000"
+                android:gravity="center"
+        />
+        <Button
+                android:id="@+id/btnOption"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:text="ALL\n(0)"
-                android:textSize="15dp"
-                android:textColor="#FFFFFF"
+                android:text="Option"
+                android:textSize="10dp"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
         />
     </LinearLayout>
 
@@ -70,14 +88,13 @@
             android:id="@+id/txtWise"
 
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="425dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="25dp"
 
             android:text="Hello World!"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:gravity="center"
-            android:background="#a5ea89"
             android:padding="10dp"
     />
 
@@ -85,14 +102,13 @@
             android:id="@+id/txtPerson"
 
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginHorizontal="25dp"
 
             android:text="Hello World!"
             android:textSize="15dp"
             android:gravity="right"
-            android:background="#ffdad8"
             android:paddingHorizontal="10dp"
     />
 
