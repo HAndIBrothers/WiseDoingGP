@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     /* 2019-06-03 */
     /* [AdMob][TestKey:on] */
-    lateinit var mAdView : AdView
+    private lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
         val clsWiseSize = 45 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
-        var clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
+        val clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[0] = ClassWise(thisWord = "살아있으면 뭐라도 해야 하는 거니까.", thisPerson = "(육룡이 나르샤) 분이", thisCategory = 0)
         clsWise[1] = ClassWise(thisWord = "처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다.\n 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.", thisPerson = "한명회", thisCategory = 0)
         clsWise[2] = ClassWise(thisWord = "나는 생각한다 고로 나는 존재한다", thisPerson = "르네 데카르트", thisCategory = 0)
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         clsWise[30] = ClassWise(thisWord = "위대한 행동이란 없다.\n위대한 사랑으로 행한 작은 행동들이 있을 뿐이다.", thisPerson = "테레사 수녀", thisCategory = 1)
         clsWise[31] = ClassWise(thisWord = "천사는 아름다운 꽃을 퍼뜨리는 사람이 아니라, 고뇌하는 사람을 위해 싸우는 사람일 것이다.", thisPerson = "플로렌스 나이팅게일", thisCategory = 1)
         clsWise[32] = ClassWise(thisWord = "당신이 포기할 때, 나는 시작한다.", thisPerson = "엘론 머스크", thisCategory = 0)
-        clsWise[33] = ClassWise(thisWord = "내가 상대를 믿는 것과, 상대가 나를 배신하는 것은 아무런 관계도 없었던 거야.", thisPerson = "마윈", thisCategory = 1)
+        clsWise[33] = ClassWise(thisWord = "내가 상대를 믿는 것과, 상대가 나를 배신하는 것은 아무런 관계도 없었던 거야.", thisPerson = "(십이국기) 나카지마 요코", thisCategory = 1)
         clsWise[34] = ClassWise(thisWord = "42", thisPerson = "(은하수를 여행하는 히치하이커를 위한 안내서)\n깊은 생각", thisCategory = 2)
         clsWise[35] = ClassWise(thisWord = "웃음이 없는 하루는 버린 하루다.", thisPerson = "찰리 채플린", thisCategory = 1)
         clsWise[36] = ClassWise(thisWord = "내 사전에 불가능은 없다.", thisPerson = "나폴레옹 보나파르트", thisCategory = 1)
@@ -97,9 +97,10 @@ class MainActivity : AppCompatActivity() {
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 
         fun fncChangeWise(tmpClass : Array<ClassWise?>, tmpSize : Int) {
-            var thisRandom = Random().nextInt(tmpSize) // [here:fncChangeWise] 명언 번호를 무작위로 뽑기 위한 Int 변수 thisRandom
+            val thisRandom = Random().nextInt(tmpSize) // [here:fncChangeWise] 명언 번호를 무작위로 뽑기 위한 Int 변수 thisRandom
             txtWise.text = tmpClass[thisRandom]?.word
-            txtPerson.text = "by "+ tmpClass[thisRandom]?.person
+            val txtPersonText = "by "+ tmpClass[thisRandom]?.person
+            txtPerson.text = txtPersonText
             Log.d("wiseDGP", "[gp002][MainActivity][here:fncChangeWise] 명언 변환")
         }
         fncChangeWise(clsWise, clsWiseSize)
@@ -157,17 +158,18 @@ class MainActivity : AppCompatActivity() {
         val btnWiseHealing = findViewById<Button>(R.id.btnWiseHealing)
         val btnWiseLove = findViewById<Button>(R.id.btnWiseLove)
 
-        var forTextWiseAll = "전체\n"
-        var forTextWiseGrowth = "발전\n"
-        var forTextWiseAttitude = "태도\n"
-        var forTextWiseHealing = "힐링\n"
-        var forTextWiseLove = "사랑\n"
+        val forTextWiseAll = "전체\n"
+        val forTextWiseGrowth = "발전\n"
+        val forTextWiseAttitude = "태도\n"
+        val forTextWiseHealing = "힐링\n"
+        val forTextWiseLove = "사랑\n"
 
         /* Category Load : 전체 */
-        btnWiseAll.text = forTextWiseAll + "($clsWiseSize)"
+        val btnWiseAllText = "$forTextWiseAll ($clsWiseSize)"
+        btnWiseAll.text = btnWiseAllText
 
         /* Category Load : 그외 */
-        var clsCategorySize = intArrayOf(0, 0, 0, 0)
+        val clsCategorySize = intArrayOf(0, 0, 0, 0)
         for (i in 0..clsWiseSize) {
             if(i < clsWiseSize){
                 when {
@@ -179,17 +181,21 @@ class MainActivity : AppCompatActivity() {
             } else {
             }
         }
-        btnWiseGrowth.text = forTextWiseGrowth + "(" + clsCategorySize[0] + ")"
-        btnWiseAttitude.text = forTextWiseAttitude+ "(" + clsCategorySize[1] + ")"
-        btnWiseHealing.text = forTextWiseHealing + "(" + clsCategorySize[2] + ")"
-        btnWiseLove.text = forTextWiseLove + "(" + clsCategorySize[3] + ")"
+        val btnWiseGrowthText = forTextWiseGrowth + "(" + clsCategorySize[0] + ")"
+        btnWiseGrowth.text = btnWiseGrowthText
+        val btnWiseAttitudeText = forTextWiseAttitude+ "(" + clsCategorySize[1] + ")"
+        btnWiseAttitude.text = btnWiseAttitudeText
+        val btnWiseHealingText = forTextWiseHealing + "(" + clsCategorySize[2] + ")"
+        btnWiseHealing.text = btnWiseHealingText
+        val btnWiseLoveText = forTextWiseLove + "(" + clsCategorySize[3] + ")"
+        btnWiseLove.text = btnWiseLoveText
 
         /* Category Array */
-        var clsCategoryGrowth = arrayOfNulls<ClassWise>(clsCategorySize[0])
-        var clsCategoryAttitude = arrayOfNulls<ClassWise>(clsCategorySize[1])
-        var clsCategoryHealing = arrayOfNulls<ClassWise>(clsCategorySize[2])
-        var clsCategoryLove = arrayOfNulls<ClassWise>(clsCategorySize[3])
-        var tmpNumber = intArrayOf(0, 0, 0, 0)
+        val clsCategoryGrowth = arrayOfNulls<ClassWise>(clsCategorySize[0])
+        val clsCategoryAttitude = arrayOfNulls<ClassWise>(clsCategorySize[1])
+        val clsCategoryHealing = arrayOfNulls<ClassWise>(clsCategorySize[2])
+        val clsCategoryLove = arrayOfNulls<ClassWise>(clsCategorySize[3])
+        val tmpNumber = intArrayOf(0, 0, 0, 0)
 
         for (i in 0..clsWiseSize) {
             if (i < clsWiseSize) {
@@ -230,31 +236,30 @@ class MainActivity : AppCompatActivity() {
             btnWiseLove.setBackgroundColor(Color.rgb(255, 229, 229))
             btnWiseLove.setTextColor(Color.rgb(50, 50, 50))
 
-            when {
-                tmpView == btnWiseAll -> {
+            when(tmpView) {
+                btnWiseAll -> {
                     btnWiseAll.setBackgroundColor(Color.rgb(50, 50, 50))
                     btnWiseAll.setTextColor(Color.rgb(255, 255, 255))
                 }
-                tmpView == btnWiseGrowth -> {
+                btnWiseGrowth -> {
                     btnWiseGrowth.setBackgroundColor(Color.rgb(50, 50, 255))
                     btnWiseGrowth.setTextColor(Color.rgb(255, 255, 255))
                 }
-                tmpView == btnWiseAttitude -> btnWiseAttitude.setBackgroundColor(Color.rgb(255, 255, 50))
-                tmpView == btnWiseHealing -> btnWiseHealing.setBackgroundColor(Color.rgb(50, 153, 50))
-                tmpView == btnWiseLove -> btnWiseLove.setBackgroundColor(Color.rgb(255, 50, 50))
+                btnWiseAttitude -> btnWiseAttitude.setBackgroundColor(Color.rgb(255, 255, 50))
+                btnWiseHealing -> btnWiseHealing.setBackgroundColor(Color.rgb(50, 153, 50))
+                btnWiseLove -> btnWiseLove.setBackgroundColor(Color.rgb(255, 50, 50))
             }
         }
 
         /* 2019-06-04 */
         /* Save & Load Category */
-        var prfCategory = this.getPreferences(0)
-        var savCategory = prfCategory.edit()
-        var savCategoryNumber = prfCategory.getInt("currentCategory", 999)
+        val prfCategory = this.getPreferences(0)
+        val savCategory = prfCategory.edit()
+        val savCategoryNumber = prfCategory.getInt("currentCategory", 999)
 
         /* 2019-06-04 */
         /* Category Click */
-        btnWiseAll.setOnClickListener(
-            View.OnClickListener {
+        btnWiseAll.setOnClickListener{
                 chkWise = clsWise
                 chkWiseSize = clsWiseSize
                 fncChangeWise(chkWise, chkWiseSize)
@@ -263,10 +268,8 @@ class MainActivity : AppCompatActivity() {
                 savCategory.putInt("currentCategory", 999).apply()
 
                 Log.d("wiseDGP", "[gp011][MainActivity][here:Category Click] btnWiseAll 클릭")
-            }
-        )
-        btnWiseGrowth.setOnClickListener(
-            View.OnClickListener {
+        }
+        btnWiseGrowth.setOnClickListener{
                 chkWise = clsCategoryGrowth
                 chkWiseSize = clsCategorySize[0]
                 fncChangeWise(chkWise, chkWiseSize)
@@ -275,10 +278,8 @@ class MainActivity : AppCompatActivity() {
                 savCategory.putInt("currentCategory", 0).apply()
 
                 Log.d("wiseDGP", "[gp012][MainActivity][here:Category Click] btnWiseGrowth 클릭")
-            }
-        )
-        btnWiseAttitude.setOnClickListener(
-            View.OnClickListener {
+        }
+        btnWiseAttitude.setOnClickListener{
                 chkWise = clsCategoryAttitude
                 chkWiseSize = clsCategorySize[1]
                 fncChangeWise(chkWise, chkWiseSize)
@@ -287,10 +288,8 @@ class MainActivity : AppCompatActivity() {
                 savCategory.putInt("currentCategory", 1).apply()
 
                 Log.d("wiseDGP", "[gp013][MainActivity][here:Category Click] btnWiseAttitude 클릭")
-            }
-        )
-        btnWiseHealing.setOnClickListener(
-            View.OnClickListener {
+        }
+        btnWiseHealing.setOnClickListener{
                 chkWise = clsCategoryHealing
                 chkWiseSize = clsCategorySize[2]
                 fncChangeWise(chkWise, chkWiseSize)
@@ -299,10 +298,8 @@ class MainActivity : AppCompatActivity() {
                 savCategory.putInt("currentCategory", 2).apply()
 
                 Log.d("wiseDGP", "[gp014][MainActivity][here:Category Click] btnWiseHealing 클릭")
-            }
-        )
-        btnWiseLove.setOnClickListener(
-            View.OnClickListener {
+        }
+        btnWiseLove.setOnClickListener {
                 chkWise = clsCategoryLove
                 chkWiseSize = clsCategorySize[3]
                 fncChangeWise(chkWise, chkWiseSize)
@@ -311,8 +308,7 @@ class MainActivity : AppCompatActivity() {
                 savCategory.putInt("currentCategory", 3).apply()
 
                 Log.d("wiseDGP", "[gp015][MainActivity][here:Category Click] btnWiseLove 클릭")
-            }
-        )
+        }
 
         /* 2019-06-04 */
         /* Save & Load Category */
