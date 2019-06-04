@@ -1,6 +1,8 @@
 package bplant.gp.wisedoing_git
 
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.ColorSpace
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +20,7 @@ import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
-    /* Current GP 010 ER 000 */
+    /* Current GP 010 ER 001 */
 
     /* 2019-06-03 */
     /* [AdMob][TestKey:on] */
@@ -108,11 +110,15 @@ class MainActivity : AppCompatActivity() {
         var secCurrent = 0 // [here] 현재 몇초를 지나고 있는지 저장하기 위한 Int 변수 secCurrent
         Log.d("wiseDGP", "[gp004][MainActivity][here] 명언 시간 반복 : $secTimer 초 지정")
 
+        /* 2019-06-04 test 카테고리에 맞춰서 변경해줄 변수 */
+        var chkWise : Array<ClassWise?> = clsWise
+        var chkWiseSize : Int = clsWiseSize
+        
         timer.scheduleAtFixedRate(delay = 1000, period = 1000) {
             secCurrent++
             if (secCurrent >= secTimer) {
                 secCurrent = 0
-                fncChangeWise(clsWise, clsWiseSize)
+                fncChangeWise(chkWise, chkWiseSize)
                 /* Debug */
                 txtDebug.text = secCurrent.toString()
                 Log.d("wiseDGP", "[gp007][MainActivity][here:timer.scheduleAtFixedRate] secCurrent >= secTimer")
@@ -160,47 +166,47 @@ class MainActivity : AppCompatActivity() {
         btnWiseAll.text = forTextWiseAll + "($clsWiseSize)"
 
         /* Category Load : 그외 */
-        var tmpCategory = intArrayOf(0, 0, 0, 0)
+        var clsCategorySize = intArrayOf(0, 0, 0, 0)
         for (i in 0..clsWiseSize) {
             if(i < clsWiseSize){
                 when {
-                    clsWise[i]?.category == 0 -> tmpCategory[0]++
-                    clsWise[i]?.category == 1 -> tmpCategory[1]++
-                    clsWise[i]?.category == 2 -> tmpCategory[2]++
-                    clsWise[i]?.category == 3 -> tmpCategory[3]++
+                    clsWise[i]?.category == 0 -> clsCategorySize[0]++
+                    clsWise[i]?.category == 1 -> clsCategorySize[1]++
+                    clsWise[i]?.category == 2 -> clsCategorySize[2]++
+                    clsWise[i]?.category == 3 -> clsCategorySize[3]++
                 }
             } else {
             }
         }
-        btnWiseGrowth.text = forTextWiseGrowth + "(" + tmpCategory[0] + ")"
-        btnWiseAttitude.text = forTextWiseAttitude+ "(" + tmpCategory[1] + ")"
-        btnWiseHealing.text = forTextWiseHealing + "(" + tmpCategory[2] + ")"
-        btnWiseLove.text = forTextWiseLove + "(" + tmpCategory[3] + ")"
+        btnWiseGrowth.text = forTextWiseGrowth + "(" + clsCategorySize[0] + ")"
+        btnWiseAttitude.text = forTextWiseAttitude+ "(" + clsCategorySize[1] + ")"
+        btnWiseHealing.text = forTextWiseHealing + "(" + clsCategorySize[2] + ")"
+        btnWiseLove.text = forTextWiseLove + "(" + clsCategorySize[3] + ")"
 
         /* Category Array */
-        var clsWiseGrowth = arrayOfNulls<ClassWise>(tmpCategory[0])
-        var clsWiseAttitude = arrayOfNulls<ClassWise>(tmpCategory[1])
-        var clsWiseHealing = arrayOfNulls<ClassWise>(tmpCategory[2])
-        var clsWiseLove = arrayOfNulls<ClassWise>(tmpCategory[3])
+        var clsCategoryGrowth = arrayOfNulls<ClassWise>(clsCategorySize[0])
+        var clsCategoryAttitude = arrayOfNulls<ClassWise>(clsCategorySize[1])
+        var clsCategoryHealing = arrayOfNulls<ClassWise>(clsCategorySize[2])
+        var clsCategoryLove = arrayOfNulls<ClassWise>(clsCategorySize[3])
         var tmpNumber = intArrayOf(0, 0, 0, 0)
 
         for (i in 0..clsWiseSize) {
             if (i < clsWiseSize) {
                 when {
                     clsWise[i]?.category == 0 -> {
-                        clsWiseGrowth[tmpNumber[0]] = clsWise[i]
+                        clsCategoryGrowth[tmpNumber[0]] = clsWise[i]
                         tmpNumber[0]++
                     }
                     clsWise[i]?.category == 1 -> {
-                        clsWiseGrowth[tmpNumber[1]] = clsWise[i]
+                        clsCategoryAttitude[tmpNumber[1]] = clsWise[i]
                         tmpNumber[1]++
                     }
                     clsWise[i]?.category == 2 -> {
-                        clsWiseGrowth[tmpNumber[2]] = clsWise[i]
+                        clsCategoryHealing[tmpNumber[2]] = clsWise[i]
                         tmpNumber[2]++
                     }
                     clsWise[i]?.category == 3 -> {
-                        clsWiseGrowth[tmpNumber[3]] = clsWise[i]
+                        clsCategoryLove[tmpNumber[3]] = clsWise[i]
                         tmpNumber[3]++
                     }
                     else -> Log.d("wiseDGP", "[er001][MainActivity][here:Category]")
@@ -209,30 +215,96 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /* Category Click 2019-06-04 */
+        /* 2019-06-04 */
+        /* Category Color Change */
+        fun fncViewChanger(tmpView : Button) {
+            btnWiseAll.setBackgroundColor(Color.rgb(229, 229, 229))
+            btnWiseAll.setTextColor(Color.rgb(50, 50, 50))
+            btnWiseGrowth.setBackgroundColor(Color.rgb(229, 229, 255))
+            btnWiseGrowth.setTextColor(Color.rgb(50, 50, 50))
+            btnWiseAttitude.setBackgroundColor(Color.rgb(255, 255, 229))
+            btnWiseAttitude.setTextColor(Color.rgb(50, 50, 50))
+            btnWiseHealing.setBackgroundColor(Color.rgb(229, 242, 229))
+            btnWiseHealing.setTextColor(Color.rgb(50, 50, 50))
+            btnWiseLove.setBackgroundColor(Color.rgb(255, 229, 229))
+            btnWiseLove.setTextColor(Color.rgb(50, 50, 50))
+
+            when {
+                tmpView == btnWiseAll -> {
+                    btnWiseAll.setBackgroundColor(Color.rgb(50, 50, 50))
+                    btnWiseAll.setTextColor(Color.rgb(255, 255, 255))
+                }
+                tmpView == btnWiseGrowth -> {
+                    btnWiseGrowth.setBackgroundColor(Color.rgb(50, 50, 255))
+                    btnWiseGrowth.setTextColor(Color.rgb(255, 255, 255))
+                }
+                tmpView == btnWiseAttitude -> btnWiseAttitude.setBackgroundColor(Color.rgb(255, 255, 50))
+                tmpView == btnWiseHealing -> btnWiseHealing.setBackgroundColor(Color.rgb(50, 153, 50))
+                tmpView == btnWiseLove -> btnWiseLove.setBackgroundColor(Color.rgb(255, 50, 50))
+            }
+        }
+        fncViewChanger(btnWiseAll)
+
+        /* 2019-06-04 */
+        /* Category Click */
         btnWiseAll.setOnClickListener(
             View.OnClickListener {
                 btnWiseAll.setBackgroundColor(Color.BLACK)
+                chkWise = clsWise
+                chkWiseSize = clsWiseSize
+                fncChangeWise(chkWise, chkWiseSize)
+
+                fncViewChanger(btnWiseAll)
+
+                Log.d("wiseDGP", "[gp011][MainActivity][here:Category Click] btnWiseAll 클릭")
             }
         )
         btnWiseGrowth.setOnClickListener(
             View.OnClickListener {
                 btnWiseGrowth.setBackgroundColor(Color.BLACK)
+                chkWise = clsCategoryGrowth
+                chkWiseSize = clsCategorySize[0]
+                fncChangeWise(chkWise, chkWiseSize)
+
+                fncViewChanger(btnWiseGrowth)
+
+                Log.d("wiseDGP", "[gp012][MainActivity][here:Category Click] btnWiseGrowth 클릭")
             }
         )
         btnWiseAttitude.setOnClickListener(
             View.OnClickListener {
                 btnWiseAttitude.setBackgroundColor(Color.BLACK)
+                chkWise = clsCategoryAttitude
+                chkWiseSize = clsCategorySize[1]
+                fncChangeWise(chkWise, chkWiseSize)
+
+                fncViewChanger(btnWiseAttitude)
+
+                Log.d("wiseDGP", "[gp013][MainActivity][here:Category Click] btnWiseAttitude 클릭")
             }
         )
         btnWiseHealing.setOnClickListener(
             View.OnClickListener {
                 btnWiseHealing.setBackgroundColor(Color.BLACK)
+                chkWise = clsCategoryHealing
+                chkWiseSize = clsCategorySize[2]
+                fncChangeWise(chkWise, chkWiseSize)
+
+                fncViewChanger(btnWiseHealing)
+
+                Log.d("wiseDGP", "[gp014][MainActivity][here:Category Click] btnWiseHealing 클릭")
             }
         )
         btnWiseLove.setOnClickListener(
             View.OnClickListener {
                 btnWiseLove.setBackgroundColor(Color.BLACK)
+                chkWise = clsCategoryLove
+                chkWiseSize = clsCategorySize[3]
+                fncChangeWise(chkWise, chkWiseSize)
+
+                fncViewChanger(btnWiseLove)
+
+                Log.d("wiseDGP", "[gp015][MainActivity][here:Category Click] btnWiseLove 클릭")
             }
         )
         
