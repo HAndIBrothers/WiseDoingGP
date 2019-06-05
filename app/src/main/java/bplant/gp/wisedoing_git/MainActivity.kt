@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         val txtDebug = findViewById<TextView>(R.id.txtDebug) // [activity_main] txtDebug 텍스트 뷰를 가져오는 변수 txtDebug
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
-        val clsWiseSize = 45 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
+        val clsWiseSize = 55 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
         val clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[0] = ClassWise(thisWord = "살아있으면 뭐라도 해야 하는 거니까.", thisPerson = "(육룡이 나르샤) 분이", thisCategory = 0)
         clsWise[1] = ClassWise(thisWord = "처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다.\n 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.", thisPerson = "한명회", thisCategory = 0)
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         clsWise[20] = ClassWise(thisWord = "안하고 죽어도 좋은 일만 내일로 미뤄라.", thisPerson = "파블로 피카소", thisCategory = 0)
         clsWise[21] = ClassWise(thisWord = "꿈은 도망치지 않는다.\n도망치는 것은 언제나 자신이다.", thisPerson = "(짱구는 못말려) 짱구아빠", thisCategory = 0)
         clsWise[22] = ClassWise(thisWord = "혼자 컸다고 자만하는 녀석은 클 자격이 없어.", thisPerson = "(짱구는 못말려) 짱구아빠", thisCategory = 1)
-        clsWise[23] = ClassWise(thisWord = "나쁜 일을 했을 때는 잘못했다고 말하는 거야.", thisPerson = "(짱구는 못말려) 짱구", thisCategory = 2)
+        clsWise[23] = ClassWise(thisWord = "나쁜 일을 했을 때는 잘못했다고 말하는 거야.", thisPerson = "(짱구는 못말려) 짱구", thisCategory = 1)
         clsWise[24] = ClassWise(thisWord = "한명의 여성을 계속 사랑하다니 멋진 일이잖아.", thisPerson = "(짱구는 못말려) 짱구아빠", thisCategory = 3)
         clsWise[25] = ClassWise(thisWord = "밝은 성격은 어떤 재산보다도 귀하다.", thisPerson = "앤드류 카네기", thisCategory = 1)
         clsWise[26] = ClassWise(thisWord = "늘 명심하라.\n성공하려는 너의 결심이 다른 어떤 것보다 중요하다.", thisPerson = "에이브러햄 링컨", thisCategory = 0)
@@ -94,6 +94,16 @@ class MainActivity : AppCompatActivity() {
         clsWise[42] = ClassWise(thisWord = "우리는 가난을 칭송하지 않는다.\n다만 가난에 굴하지 않는 사람을 칭송할 뿐이다.", thisPerson = "레프 톨스토이", thisCategory = 0)
         clsWise[43] = ClassWise(thisWord = "가장 유능한 자는 가장 배우려 하는 자이다.", thisPerson = "요한 볼프강 폰 괴테", thisCategory = 0)
         clsWise[44] = ClassWise(thisWord = "오늘 가장 좋게 웃는 자는 분명 최후에도 웃을 것이다.", thisPerson = "프리드리히 니체", thisCategory = 1)
+        clsWise[45] = ClassWise(thisWord = "사랑은 두 사람이 마주 쳐다보는 것이 아니라 함께 같은 방향을 바라보는 것이다.", thisPerson = "앙투안 드 생텍쥐페리", thisCategory = 3)
+        clsWise[46] = ClassWise(thisWord = "행복은 생각, 말 행동이 조화를 이룰 때 찾아온다.", thisPerson = "마하트마 간디", thisCategory = 1)
+        clsWise[47] = ClassWise(thisWord = "당신이 취하는 모든 행동이 보잘 것 없다 하더라도, 중요한 것은 일단 행동을 취하는 것이다.", thisPerson = "마하트마 간디", thisCategory = 0)
+        clsWise[48] = ClassWise(thisWord = "날지 못한다면 뛰십시오, 뛰지 못한다면 걸으십시오, 걷지 못한다면 기십시오.\n무엇을 하던 가장 중요한 것은, 앞으로 나아가야 한다는 것입니다.", thisPerson = "마틴 루터 킹", thisCategory = 0)
+        clsWise[49] = ClassWise(thisWord = "용서는 가끔 발생하는 행위가 아니라, 지속적으로 우리가 지녀야할 태도입니다.", thisPerson = "마틴 루터 킹", thisCategory = 1)
+        clsWise[50] = ClassWise(thisWord = "스스로 운이 나쁘다고 생각하지 않는 한은 나쁜 운이란 없다.", thisPerson = "정주영", thisCategory = 1)
+        clsWise[51] = ClassWise(thisWord = "이봐, 해보기나 했어?", thisPerson = "정주영", thisCategory = 0)
+        clsWise[52] = ClassWise(thisWord = "우리 모두는 별이고, 반짝일 권리가 있다.", thisPerson = "마릴린 먼로", thisCategory = 2)
+        clsWise[53] = ClassWise(thisWord = "이것 역시 곧 지나가리라.", thisPerson = "솔로몬", thisCategory = 2)
+        clsWise[54] = ClassWise(thisWord = "부처의 경지에 도달한 사람도 인과응보의 세상 이치에서 자유로울 수 없다.", thisPerson = "석가모니", thisCategory = 1)
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 
         fun fncChangeWise(tmpClass : Array<ClassWise?>, tmpSize : Int) {
