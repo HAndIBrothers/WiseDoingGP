@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorSpace
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,11 @@ import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
 /* [AdMob][TestKey:on] */
 import com.google.android.gms.ads.MobileAds
+/* TTS */
+import android.speech.tts.TextToSpeech
+import android.speech.tts.TextToSpeech.OnInitListener
+import android.widget.Toast
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +32,10 @@ class MainActivity : AppCompatActivity() {
     /* 2019-06-03 */
     /* [AdMob][TestKey:on] */
     private lateinit var mAdView : AdView
+
+    /* 2019-06-05 */
+    /* TTS */
+    lateinit var wiseTTS : TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +48,15 @@ class MainActivity : AppCompatActivity() {
         mAdView = findViewById(R.id.adView)
         val adRequest =  AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+
+        /* 2019-06-05 */
+        /* TTS */
+        wiseTTS = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { status ->
+            if (status != TextToSpeech.ERROR) {
+                // if there is no error then set language
+                wiseTTS.language = Locale.KOREA
+            }
+        })
 
         // 여기서부터 코딩
         val txtWise = findViewById<TextView>(R.id.txtWise) // [activity_main] txtWise 텍스트 뷰를 가져오는 변수 txtWise
@@ -108,9 +127,11 @@ class MainActivity : AppCompatActivity() {
 
         fun fncChangeWise(tmpClass : Array<ClassWise?>, tmpSize : Int) {
             val thisRandom = Random().nextInt(tmpSize) // [here:fncChangeWise] 명언 번호를 무작위로 뽑기 위한 Int 변수 thisRandom
-            txtWise.text = tmpClass[thisRandom]?.word
+            val txtWiseText = tmpClass[thisRandom]?.word
+            txtWise.text = txtWiseText
             val txtPersonText = "by "+ tmpClass[thisRandom]?.person
             txtPerson.text = txtPersonText
+
             Log.d("wiseDGP", "[gp002][MainActivity][here:fncChangeWise] 명언 변환")
         }
         fncChangeWise(clsWise, clsWiseSize)
@@ -118,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
         /* Repeat Play */
         val timer = Timer("SettingUp", false) // [here] 명언을 지정 시간(초)마다 부르기 위한 Timer 변수 timer
-        var secTimer = 5 // [here] 지속적인 변경 시간(초)를 저장하기 위한 Int 변수 secTimer
+        var secTimer = 10 // [here] 지속적인 변경 시간(초)를 저장하기 위한 Int 변수 secTimer
         var secCurrent = 0 // [here] 현재 몇초를 지나고 있는지 저장하기 위한 Int 변수 secCurrent
         Log.d("wiseDGP", "[gp004][MainActivity][here] 명언 시간 반복 : $secTimer 초 지정")
 
@@ -131,6 +152,15 @@ class MainActivity : AppCompatActivity() {
             if (secCurrent >= secTimer) {
                 secCurrent = 0
                 fncChangeWise(chkWise, chkWiseSize)
+
+                /* TTS */
+                if (wiseTTS.isSpeaking){
+                    wiseTTS.stop()
+                    wiseSpeaker(txtWise.text.toString())
+                } else {
+                    wiseSpeaker(txtWise.text.toString())
+                }
+
                 /* Debug */
                 txtDebug.text = secCurrent.toString()
                 Log.d("wiseDGP", "[gp007][MainActivity][here:timer.scheduleAtFixedRate] secCurrent >= secTimer")
@@ -340,5 +370,30 @@ class MainActivity : AppCompatActivity() {
             }
         )
         */
+    }
+
+    /* 2019-06-05 */
+    /* TTS */
+    private fun wiseSpeaker(toSpeak : String) {
+        if (toSpeak == "") {
+            // if there is no text
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        } else {
+            // if there is text
+            // Toast.makeText(this, toSpeak, Toast.LENGTH_SHORT).show()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                wiseTTS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null, null)
+            } else {
+                wiseTTS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null)
+            }
+        }
+    }
+
+    override fun onPause() {
+        if (wiseTTS.isSpeaking) {
+            // if speaking then stop
+            wiseTTS.stop()
+        }
+        super.onPause()
     }
 }
