@@ -1,5 +1,7 @@
 package bplant.gp.wisedoing_git
 
+import android.app.LauncherActivity
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,9 +11,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,8 +21,10 @@ import com.google.android.gms.ads.MobileAds
 /* TTS */
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
-import android.widget.Toast
+import android.support.v7.app.AlertDialog
+import android.widget.*
 import org.w3c.dom.Text
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +36,14 @@ class MainActivity : AppCompatActivity() {
 
     /* 2019-06-05 */
     /* TTS */
-    lateinit var wiseTTS : TextToSpeech
+    private lateinit var wiseTTS : TextToSpeech
+
+    /* 2019-06-06 */
+    private lateinit var timer : Timer
+    /* Option */
+    private var savTTSOption : Boolean = false
+    /* Time */
+    private var secTimer = 10 // [here] 지속적인 변경 시간(초)를 저장하기 위한 Int 변수 secTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         val txtDebug = findViewById<TextView>(R.id.txtDebug) // [activity_main] txtDebug 텍스트 뷰를 가져오는 변수 txtDebug
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
-        val clsWiseSize = 55 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
+        val clsWiseSize = 60 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
         val clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[0] = ClassWise(thisWord = "살아있으면 뭐라도 해야 하는 거니까.", thisPerson = "(육룡이 나르샤) 분이", thisCategory = 0)
         clsWise[1] = ClassWise(thisWord = "처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다.\n 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.", thisPerson = "한명회", thisCategory = 0)
@@ -123,6 +131,11 @@ class MainActivity : AppCompatActivity() {
         clsWise[52] = ClassWise(thisWord = "우리 모두는 별이고, 반짝일 권리가 있다.", thisPerson = "마릴린 먼로", thisCategory = 2)
         clsWise[53] = ClassWise(thisWord = "이것 역시 곧 지나가리라.", thisPerson = "솔로몬", thisCategory = 2)
         clsWise[54] = ClassWise(thisWord = "부처의 경지에 도달한 사람도 인과응보의 세상 이치에서 자유로울 수 없다.", thisPerson = "석가모니", thisCategory = 1)
+        clsWise[55] = ClassWise(thisWord = "사랑은 무엇보다도 자신을 위한 선물이다.", thisPerson = "장 아누이", thisCategory = 3)
+        clsWise[56] = ClassWise(thisWord = "사랑이 지나치는 법은 없다.", thisPerson = "빅토르 위고", thisCategory = 3)
+        clsWise[57] = ClassWise(thisWord = "궁핍은 영혼과 정신을 낳고, 불행은 위대한 인물을 낳는다.", thisPerson = "빅토르 위고", thisCategory = 0)
+        clsWise[58] = ClassWise(thisWord = "모두에게 넌 과분하지.", thisPerson = "(디즈니 : 미녀와 야수 2017) 개스톤", thisCategory = 2)
+        clsWise[59] = ClassWise(thisWord = "아무리 기적이라 해도 시간이 좀 걸린단다.", thisPerson = "(디즈니 : 신데렐라 1950) 요정대모", thisCategory = 1)
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 
         fun fncChangeWise(tmpClass : Array<ClassWise?>, tmpSize : Int) {
@@ -137,9 +150,9 @@ class MainActivity : AppCompatActivity() {
         fncChangeWise(clsWise, clsWiseSize)
         Log.d("wiseDGP", "[gp003][MainActivity][here] 초기화면 명언 출력")
 
+        /* 2019-06-06 */
         /* Repeat Play */
-        val timer = Timer("SettingUp", false) // [here] 명언을 지정 시간(초)마다 부르기 위한 Timer 변수 timer
-        var secTimer = 10 // [here] 지속적인 변경 시간(초)를 저장하기 위한 Int 변수 secTimer
+        timer = Timer("SettingUp", false) // [here] 명언을 지정 시간(초)마다 부르기 위한 Timer 변수 timer
         var secCurrent = 0 // [here] 현재 몇초를 지나고 있는지 저장하기 위한 Int 변수 secCurrent
         Log.d("wiseDGP", "[gp004][MainActivity][here] 명언 시간 반복 : $secTimer 초 지정")
 
@@ -189,6 +202,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             Log.d("wiseDGP", "[gp005][MainActivity][here:timer.scheduleAtFixedRate] 지정 시간 반복 실행")
+        }
+
+        /* 2019-06-06 */
+        /* Timer 초기화 */
+        fun iniTimer() {
+            secCurrent = 0
+            fncChangeWise(chkWise, chkWiseSize)
+            imgUnder.setImageResource(R.drawable.bnr_proto1_0)
         }
 
         /* Category */
@@ -292,7 +313,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         /* 2019-06-04 */
-        /* Save & Load Category */
+        /* Save & Load : Category */
         val prfCategory = this.getPreferences(0)
         val savCategory = prfCategory.edit()
         val savCategoryNumber = prfCategory.getInt("currentCategory", 999)
@@ -350,6 +371,88 @@ class MainActivity : AppCompatActivity() {
                 Log.d("wiseDGP", "[gp015][MainActivity][here:Category Click] btnWiseLove 클릭")
         }
 
+        /* 2019-06-06 */
+        /* Option */
+
+        /* Option Load */
+        savTTSOption = prfCategory.getBoolean("currentTTSOption", false)
+        secTimer = prfCategory.getInt("currentTimeOption", 10)
+        Toast.makeText(this, secTimer.toString(), Toast.LENGTH_SHORT).show()
+
+        val btnOption = findViewById<Button>(R.id.btnOption)
+        btnOption.setOnClickListener{
+            val alertOption = AlertDialog.Builder(this@MainActivity)
+            alertOption.setTitle("옵션")
+
+            val alertOptionItem = arrayOf("명언 전환시간", "TTS")
+            alertOption.setSingleChoiceItems(alertOptionItem, -1) { _ , i ->
+                when(i) {
+                    0 -> {
+                        val dialogOptionTime = AlertDialog.Builder(this@MainActivity)
+                        dialogOptionTime.setTitle("명언 전환시간 설정")
+
+                        val alertOptionTime = arrayOf("10초", "1분", "10분")
+                        dialogOptionTime.setSingleChoiceItems(alertOptionTime, -1) { dialogTime, k ->
+                            when(k) {
+                                0 -> {
+                                    secTimer = 10
+                                    savCategory.putInt("currentTimeOption", secTimer).apply()
+                                }
+                                1 -> {
+                                    secTimer = 60
+                                    savCategory.putInt("currentTimeOption", secTimer).apply()
+                                }
+                                2 -> {
+                                    secTimer = 600
+                                    savCategory.putInt("currentTimeOption", secTimer).apply()
+                                }
+                            }
+                            iniTimer()
+                            dialogTime.dismiss()
+                        }
+
+                        dialogOptionTime.setNeutralButton("닫기") {dialog : DialogInterface, _ : Int -> dialog.cancel() }
+
+                        val alertDialogTime = dialogOptionTime.create()
+                        alertDialogTime.show()
+                    }
+
+                    1 -> {
+                        val dialogOptionTTS = AlertDialog.Builder(this@MainActivity)
+                        dialogOptionTTS.setTitle("TTS 설정")
+
+                        val alertOptionTTS = arrayOf("ON", "OFF")
+                        dialogOptionTTS.setSingleChoiceItems(alertOptionTTS, -1) { dialogTTS, j ->
+                            // Toast.makeText(this, alertOptionTTS[i], Toast.LENGTH_SHORT).show()
+                            when(j) {
+                                0 -> {
+                                    savTTSOption = true
+                                    savCategory.putBoolean("currentTTSOption", savTTSOption).apply()
+                                }
+                                1 -> {
+                                    savTTSOption = false
+                                    savCategory.putBoolean("currentTTSOption", savTTSOption).apply()
+                                }
+                            }
+                            dialogTTS.dismiss()
+                        }
+
+                        dialogOptionTTS.setNeutralButton("닫기") { dialog : DialogInterface, _ : Int -> dialog.cancel() }
+
+                        val alertDialogTTS = dialogOptionTTS.create()
+                        alertDialogTTS.show()
+                    }
+                }
+            }
+
+            alertOption.setNeutralButton("닫기") { dialog : DialogInterface, _ : Int ->
+                dialog.cancel()
+            }
+
+            val alertDialog = alertOption.create()
+            alertDialog.show()
+        }
+
         /* 2019-06-04 */
         /* Save & Load Category */
         Log.d("wiseDGP", "[gp016][MainActivity][here:Category Click] 'currentCategory' $savCategoryNumber 로드")
@@ -375,21 +478,26 @@ class MainActivity : AppCompatActivity() {
     /* 2019-06-05 */
     /* TTS */
     private fun wiseSpeaker(toSpeak : String) {
-        if (toSpeak == "") {
-            // if there is no text
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-        } else {
-            // if there is text
-            // Toast.makeText(this, toSpeak, Toast.LENGTH_SHORT).show()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                wiseTTS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null, null)
-            } else {
-                wiseTTS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null)
+        when (savTTSOption) {
+            true -> {
+                if (toSpeak == "") {
+                    // if there is no text
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                } else {
+                    // if there is text
+                    // Toast.makeText(this, toSpeak, Toast.LENGTH_SHORT).show()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        wiseTTS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null, null)
+                    } else {
+                        wiseTTS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null)
+                    }
+                }
             }
         }
     }
 
     override fun onPause() {
+        timer.cancel()
         if (wiseTTS.isSpeaking) {
             // if speaking then stop
             wiseTTS.stop()
