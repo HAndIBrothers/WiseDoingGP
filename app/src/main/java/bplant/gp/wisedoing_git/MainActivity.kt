@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         val txtDebug = findViewById<TextView>(R.id.txtDebug) // [activity_main] txtDebug 텍스트 뷰를 가져오는 변수 txtDebug
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
-        val clsWiseSize = 70 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
+        val clsWiseSize = 75 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
         val clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[	0	] = ClassWise( thisWord = "	살아있으면 뭐라도 해야 하는 거니까.	", thisPerson = "	(육룡이 나르샤) 분이	", thisCategory = 	0	, thisWordJ = "	生きていれば、何かをやらないと。	", thisPersonJ = "	『六龍が飛ぶ』プ二	", thisWordE = "	If you are living, you should do something.	", thisPersonE = "	(Six Flying Dragons) Boon-yi	")
         clsWise[	1	] = ClassWise( thisWord = "	처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다. 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.	", thisPerson = "	한명회	", thisCategory = 	0	, thisWordJ = "	始めは勤勉ですが後になると怠惰になるのが人の常です。 是非殿下は後を謹んで、常に始めのようにしてください。	", thisPersonJ = "	韓明カイ	", thisWordE = "	At first, anybody is diligence, but they're always become lazy later. Your Highness, Please forget the Last, and do not forget the Start.	", thisPersonE = "	Han Myeonghoe	")
@@ -164,6 +164,11 @@ class MainActivity : AppCompatActivity() {
         clsWise[	67	] = ClassWise( thisWord = "	나는 절망할 때마다, 진실과 사랑이 결국에는 승리해 왔다는 사실을 떠올립니다.	", thisPerson = "	마하트마 간디	", thisCategory = 	3	, thisWordJ = "	私は失望した時、歴史を通して真実と愛がいつも勝っていたことを思い出す。	", thisPersonJ = "	マハトマ・ガンディー	", thisWordE = "	When I despair, I remember that all through history the way of truth and love have always won.	", thisPersonE = "	Mahatma Gandhi	")
         clsWise[	68	] = ClassWise( thisWord = "	우리는 우리가 사랑하는 것들을 있는 그대로 사랑한다.	", thisPerson = "	로버트 프로스트	", thisCategory = 	3	, thisWordJ = "	我等は我等が愛するものが何であれとも、そのまま愛する。	", thisPersonJ = "	ロバート・フロスト	", thisWordE = "	We love the things we love for what they are.	", thisPersonE = "	Robert Frost	")
         clsWise[	69	] = ClassWise( thisWord = "	당신을 평범한 사람처럼 대하는 사람을 사랑하지 마세요.	", thisPerson = "	오스카 와일드	", thisCategory = 	3	, thisWordJ = "	あなたのことをただの凡人として扱う人を愛してはいけません。 	", thisPersonJ = "	オスカー・ワイルド	", thisWordE = "	Never love anyone who treats you like you're ordinary.	", thisPersonE = "	Oscar Wilde	")
+        clsWise[	70	] = ClassWise( thisWord = "	세상의 모든 어둠을 모아도 하나의 양초를 끄는 것은 불가능합니다.	", thisPerson = "	아시시의 프란치스코	", thisCategory = 	2	, thisWordJ = "	世界中のすべての暗闇を集めても１本のろうそくを消すことはできない。	", thisPersonJ = "	アッシジのフランチェスコ	", thisWordE = "	All the darkness in the world cannot extinguish the light of a single candle.	", thisPersonE = "	Francis of Assisi	")
+        clsWise[	71	] = ClassWise( thisWord = "	네 동의없이, 그 누구도 너에게 열등감을 느끼게 할 수 없다.	", thisPerson = "	엘리너 루스벨트	", thisCategory = 	2	, thisWordJ = "	あなたの同意なしに、誰もあなたに劣等感を抱かせることはできない。	", thisPersonJ = "	エレノア・ルーズベルト	", thisWordE = "	No one can make you feel inferior without your consent.	", thisPersonE = "	Eleanor Roosevelt	")
+        clsWise[	72	] = ClassWise( thisWord = "	자신이 되고 싶은 것이 되는 데 늦었다는 것은 없습니다.	", thisPerson = "	조지 엘리엇	", thisCategory = 	2	, thisWordJ = "	なりたかった自分になるのに遅すぎることはありません	", thisPersonJ = "	ジョージ・エリオット	", thisWordE = "	It is never too late to be what you might have been.	", thisPersonE = "	George Eliot	")
+        clsWise[	73	] = ClassWise( thisWord = "	사람은 그 자체로 사람입니다. 얼마나 작은가는 관계 없습니다.	", thisPerson = "	닥터 수스	", thisCategory = 	2	, thisWordJ = "	人は人です。どれだけ小いかは関係ありません。	", thisPersonJ = "	ドクター・スース	", thisWordE = "	A person's a person, no matter how small.	", thisPersonE = "	Dr. Seuss	")
+        clsWise[	74	] = ClassWise( thisWord = "	너는 친절해. 너는 현명해. 그리고 너는 소중해	", thisPerson = "	캐서린 스토킷	", thisCategory = 	2	, thisWordJ = "	あなたはやさしいです。あなたは賢いです。そしてあなたは大切です。	", thisPersonJ = "	キャスリン・ストケット	", thisWordE = "	You is kind. You is smart. You is important	", thisPersonE = "	Kathryn Stockett	")
 
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 
