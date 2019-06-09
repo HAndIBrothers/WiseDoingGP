@@ -1,30 +1,22 @@
 package bplant.gp.wisedoing_git
 
-import android.app.LauncherActivity
 import android.content.DialogInterface
-import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.ColorSpace
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
 /* [AdMob][TestKey:on] */
 import com.google.android.gms.ads.MobileAds
 /* TTS */
 import android.speech.tts.TextToSpeech
-import android.speech.tts.TextToSpeech.OnInitListener
+import android.support.v4.os.ConfigurationCompat
 import android.support.v7.app.AlertDialog
 import android.widget.*
-import org.w3c.dom.Text
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private var secTimer = 10 // [here] 지속적인 변경 시간(초)를 저장하기 위한 Int 변수 secTimer
 
     /* 2019-06-09 */
-    private var chkLanguage : Int = 0
+    private var chkLanguage : Int = 99
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +59,21 @@ class MainActivity : AppCompatActivity() {
         val savCategoryNumber = prfCategory.getInt("currentCategory", 999)
 
         /* 2019-06-09 */
-        chkLanguage = prfCategory.getInt("currentLanguageOption", 0)
+        chkLanguage = prfCategory.getInt("currentLanguageOption", 99)
+
+        if (chkLanguage == 99){
+            val thisTempLocale = ConfigurationCompat.getLocales(resources.configuration)[0].toString()
+            Toast.makeText(this, thisTempLocale, Toast.LENGTH_LONG).show()
+
+            chkLanguage = when(ConfigurationCompat.getLocales(resources.configuration)[0].toString()) {
+                "ko_KR" -> 0
+                "ja_JP" -> 1
+                "en_US" -> 2
+                else -> 2
+            }
+
+            savCategory.putInt("currentLanguageOption", chkLanguage).apply()
+        }
 
         /* 2019-06-05 */
         /* TTS */
@@ -86,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         val txtDebug = findViewById<TextView>(R.id.txtDebug) // [activity_main] txtDebug 텍스트 뷰를 가져오는 변수 txtDebug
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
-        val clsWiseSize = 65 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
+        val clsWiseSize = 70 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
         val clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[	0	] = ClassWise( thisWord = "	살아있으면 뭐라도 해야 하는 거니까.	", thisPerson = "	(육룡이 나르샤) 분이	", thisCategory = 	0	, thisWordJ = "	生きていれば、何かをやらないと。	", thisPersonJ = "	『六龍が飛ぶ』プ二	", thisWordE = "	If you are living, you should do something.	", thisPersonE = "	(Six Flying Dragons) Boon-yi	")
         clsWise[	1	] = ClassWise( thisWord = "	처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다. 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.	", thisPerson = "	한명회	", thisCategory = 	0	, thisWordJ = "	始めは勤勉ですが後になると怠惰になるのが人の常です。 是非殿下は後を謹んで、常に始めのようにしてください。	", thisPersonJ = "	韓明カイ	", thisWordE = "	At first, anybody is diligence, but they're always become lazy later. Your Highness, Please forget the Last, and do not forget the Start.	", thisPersonE = "	Han Myeonghoe	")
@@ -153,6 +159,11 @@ class MainActivity : AppCompatActivity() {
         clsWise[	62	] = ClassWise( thisWord = "	어려움 속에, 기회가 있다.	", thisPerson = "	알베르트 아인슈타인	", thisCategory = 	0	, thisWordJ = "	困難の中に、機会がある。	", thisPersonJ = "	アルベルト・アインシュタイン	", thisWordE = "	In the middle of difficulty, lies opportunity.	", thisPersonE = "	Albert Einstein	")
         clsWise[	63	] = ClassWise( thisWord = "	어떤 바보라도 비판하고, 비난하고, 불만을 내비칠 수 있다. 그리고 대부분의 바보가 그렇게 한다.	", thisPerson = "	데일 카네기	", thisCategory = 	1	, thisWordJ = "	どんな愚者でも批判し、非難し、文句を言うことはできる。そして、多くの愚者がそうする。	", thisPersonJ = "	デール・カーネギー	", thisWordE = "	Any fool can criticize, condemn and complain – and most fools do.	", thisPersonE = "	Dale Carnegie	")
         clsWise[	64	] = ClassWise( thisWord = "	사랑에 빠지면 졸리지 않을 겁니다. 왜냐하면 현실이 꿈보다 더 멋지게 되거든요.	", thisPerson = "	닥터 수스	", thisCategory = 	3	, thisWordJ = "	恋に落ちると眠れなくなるでしょう。 だって、ようやく現実が夢より素敵になったんだから。	", thisPersonJ = "	ドクター・スース	", thisWordE = "	You know you're in love when you can't fall asleep because reality is finally better than your dreams.	", thisPersonE = "	Dr. Seuss	")
+        clsWise[	65	] = ClassWise( thisWord = "	누군가에게 깊이 사랑받으면 힘이 생기고, 누군가를 깊이 사랑하면 용기가 생긴다.	", thisPerson = "	노자	", thisCategory = 	3	, thisWordJ = "	誰かを深く愛せば、強さが生まれる。誰かに深く愛されれば、勇気が生まれる。	", thisPersonJ = "	老子	", thisWordE = "	Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.	", thisPersonE = "	Laozi	")
+        clsWise[	66	] = ClassWise( thisWord = "	사람은 사랑받고 있으니까 사랑받는 겁니다. 사랑에 이유는 필요 없습니다.	", thisPerson = "	파울로 코엘료	", thisCategory = 	3	, thisWordJ = "	人は愛されているから愛されているんです。愛に理由は必要ありません。	", thisPersonJ = "	パウロ・コエーリョ	", thisWordE = "	One is loved because one is loved. No reason is needed for loving.	", thisPersonE = "	Paulo Coelho	")
+        clsWise[	67	] = ClassWise( thisWord = "	나는 절망할 때마다, 진실과 사랑이 결국에는 승리해 왔다는 사실을 떠올립니다.	", thisPerson = "	마하트마 간디	", thisCategory = 	3	, thisWordJ = "	私は失望した時、歴史を通して真実と愛がいつも勝っていたことを思い出す。	", thisPersonJ = "	マハトマ・ガンディー	", thisWordE = "	When I despair, I remember that all through history the way of truth and love have always won.	", thisPersonE = "	Mahatma Gandhi	")
+        clsWise[	68	] = ClassWise( thisWord = "	우리는 우리가 사랑하는 것들을 있는 그대로 사랑한다.	", thisPerson = "	로버트 프로스트	", thisCategory = 	3	, thisWordJ = "	我等は我等が愛するものが何であれとも、そのまま愛する。	", thisPersonJ = "	ロバート・フロスト	", thisWordE = "	We love the things we love for what they are.	", thisPersonE = "	Robert Frost	")
+        clsWise[	69	] = ClassWise( thisWord = "	당신을 평범한 사람처럼 대하는 사람을 사랑하지 마세요.	", thisPerson = "	오스카 와일드	", thisCategory = 	3	, thisWordJ = "	あなたのことをただの凡人として扱う人を愛してはいけません。 	", thisPersonJ = "	オスカー・ワイルド	", thisWordE = "	Never love anyone who treats you like you're ordinary.	", thisPersonE = "	Oscar Wilde	")
 
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 
@@ -253,13 +264,6 @@ class MainActivity : AppCompatActivity() {
         val btnWiseHealing = findViewById<Button>(R.id.btnWiseHealing)
         val btnWiseLove = findViewById<Button>(R.id.btnWiseLove)
 
-        var forTextWiseAll = "\n"
-        var forTextWiseGrowth = "\n"
-        var forTextWiseAttitude = "\n"
-        var forTextWiseHealing = "\n"
-        var forTextWiseLove = "\n"
-
-
         /* Category Load : 그외 */
         val clsCategorySize = intArrayOf(0, 0, 0, 0)
         for (i in 0..clsWiseSize) {
@@ -276,11 +280,17 @@ class MainActivity : AppCompatActivity() {
 
         /* 2019-06-09 */
         /* Language Change */
-        var btnWiseAllText : String = ""
-        var btnWiseGrowthText : String = ""
-        var btnWiseAttitudeText : String = ""
-        var btnWiseHealingText : String = ""
-        var btnWiseLoveText : String = ""
+        var forTextWiseAll: String
+        var forTextWiseGrowth: String
+        var forTextWiseAttitude: String
+        var forTextWiseHealing: String
+        var forTextWiseLove: String
+
+        var btnWiseAllText : String
+        var btnWiseGrowthText : String
+        var btnWiseAttitudeText : String
+        var btnWiseHealingText : String
+        var btnWiseLoveText : String
 
         fun uiLanguageChange() {
             when(chkLanguage){
@@ -465,7 +475,6 @@ class MainActivity : AppCompatActivity() {
         /* Option Load */
         savTTSOption = prfCategory.getBoolean("currentTTSOption", false)
         secTimer = prfCategory.getInt("currentTimeOption", 10)
-        Toast.makeText(this, secTimer.toString(), Toast.LENGTH_SHORT).show()
 
         val alertOptionTitleText = arrayOf("옵션", "オプション", "Option")
         val alertOptionItemText = arrayOf(arrayOf("명언 전환시간", "TTS", "언어"), arrayOf("格言転換時間", "TTS", "言語"), arrayOf("Change Time", "TTS", "Language"))
@@ -566,7 +575,7 @@ class MainActivity : AppCompatActivity() {
                             uiLanguageChange()
                             wiseTTSLanguage(wiseTTS)
                             iniTimer()
-                            fncChangeWise(clsWise, clsWiseSize)
+                            fncChangeWise(chkWise, chkWiseSize)
 
                             dialogLanguage.dismiss()
                         }
@@ -627,7 +636,6 @@ class MainActivity : AppCompatActivity() {
             true -> {
                 if (toSpeak == "") {
                     // if there is no text
-                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
                 } else {
                     // if there is text
                     // Toast.makeText(this, toSpeak, Toast.LENGTH_SHORT).show()
