@@ -45,9 +45,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         /* 2019-06-03 */// Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        /* [AdMob][TestKey:on] */
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713")
-        /* [AdMob][TestKey:on] */
+        /* [AdMob][TestKey:off] */
+        MobileAds.initialize(this, "ca-app-pub-3020656397306170/6136650559")
         mAdView = findViewById(R.id.adView)
         val adRequest =  AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         val txtDebug = findViewById<TextView>(R.id.txtDebug) // [activity_main] txtDebug 텍스트 뷰를 가져오는 변수 txtDebug
         Log.d("wiseDGP", "[gp000][MainActivity][activity_main] 필요한 View 변수 저장")
 
-        val clsWiseSize = 75 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
+        val clsWiseSize = 80 // [here] 명언의 갯수를 저장하는 Int 변수 clsWiseSize
         val clsWise = arrayOfNulls<ClassWise>(size = clsWiseSize) // [here] 명언을 저장하는 배열 Class 변수 clsWise
         clsWise[	0	] = ClassWise( thisWord = "	살아있으면 뭐라도 해야 하는 거니까.	", thisPerson = "	(육룡이 나르샤) 분이	", thisCategory = 	0	, thisWordJ = "	生きていれば、何かをやらないと。	", thisPersonJ = "	『六龍が飛ぶ』プ二	", thisWordE = "	If you are living, you should do something.	", thisPersonE = "	(Six Flying Dragons) Boon-yi	")
         clsWise[	1	] = ClassWise( thisWord = "	처음에 부지런하지만 나중으로 갈수록 게을러지는 것은 인지상정입니다. 원컨대 전하께서는 나중을 삼가기를 항상 처음처럼 하십시오.	", thisPerson = "	한명회	", thisCategory = 	0	, thisWordJ = "	始めは勤勉ですが後になると怠惰になるのが人の常です。 是非殿下は後を謹んで、常に始めのようにしてください。	", thisPersonJ = "	韓明カイ	", thisWordE = "	At first, anybody is diligence, but they're always become lazy later. Your Highness, Please forget the Last, and do not forget the Start.	", thisPersonE = "	Han Myeonghoe	")
@@ -169,6 +168,16 @@ class MainActivity : AppCompatActivity() {
         clsWise[	72	] = ClassWise( thisWord = "	자신이 되고 싶은 것이 되는 데 늦었다는 것은 없습니다.	", thisPerson = "	조지 엘리엇	", thisCategory = 	2	, thisWordJ = "	なりたかった自分になるのに遅すぎることはありません	", thisPersonJ = "	ジョージ・エリオット	", thisWordE = "	It is never too late to be what you might have been.	", thisPersonE = "	George Eliot	")
         clsWise[	73	] = ClassWise( thisWord = "	사람은 그 자체로 사람입니다. 얼마나 작은가는 관계 없습니다.	", thisPerson = "	닥터 수스	", thisCategory = 	2	, thisWordJ = "	人は人です。どれだけ小いかは関係ありません。	", thisPersonJ = "	ドクター・スース	", thisWordE = "	A person's a person, no matter how small.	", thisPersonE = "	Dr. Seuss	")
         clsWise[	74	] = ClassWise( thisWord = "	너는 친절해. 너는 현명해. 그리고 너는 소중해	", thisPerson = "	캐서린 스토킷	", thisCategory = 	2	, thisWordJ = "	あなたはやさしいです。あなたは賢いです。そしてあなたは大切です。	", thisPersonJ = "	キャスリン・ストケット	", thisWordE = "	You is kind. You is smart. You is important	", thisPersonE = "	Kathryn Stockett	")
+        clsWise[	70	] = ClassWise( thisWord = "	세상의 모든 어둠을 모아도 하나의 양초를 끄는 것은 불가능합니다.	", thisPerson = "	아시시의 프란치스코	", thisCategory = 	2	, thisWordJ = "	世界中のすべての暗闇を集めても１本のろうそくを消すことはできない。	", thisPersonJ = "	アッシジのフランチェスコ	", thisWordE = "	All the darkness in the world cannot extinguish the light of a single candle.	", thisPersonE = "	Francis of Assisi	")
+        clsWise[	71	] = ClassWise( thisWord = "	네 동의없이, 그 누구도 너에게 열등감을 느끼게 할 수 없다.	", thisPerson = "	엘리너 루스벨트	", thisCategory = 	2	, thisWordJ = "	あなたの同意なしに、誰もあなたに劣等感を抱かせることはできない。	", thisPersonJ = "	エレノア・ルーズベルト	", thisWordE = "	No one can make you feel inferior without your consent.	", thisPersonE = "	Eleanor Roosevelt	")
+        clsWise[	72	] = ClassWise( thisWord = "	자신이 되고 싶은 것이 되는 데 늦었다는 것은 없습니다.	", thisPerson = "	조지 엘리엇	", thisCategory = 	2	, thisWordJ = "	なりたかった自分になるのに遅すぎることはありません	", thisPersonJ = "	ジョージ・エリオット	", thisWordE = "	It is never too late to be what you might have been.	", thisPersonE = "	George Eliot	")
+        clsWise[	73	] = ClassWise( thisWord = "	사람은 그 자체로 사람입니다. 얼마나 작은가는 관계 없습니다.	", thisPerson = "	닥터 수스	", thisCategory = 	2	, thisWordJ = "	人は人です。どれだけ小いかは関係ありません。	", thisPersonJ = "	ドクター・スース	", thisWordE = "	A person's a person, no matter how small.	", thisPersonE = "	Dr. Seuss	")
+        clsWise[	74	] = ClassWise( thisWord = "	너는 친절해. 너는 현명해. 그리고 너는 소중해	", thisPerson = "	캐서린 스토킷	", thisCategory = 	2	, thisWordJ = "	あなたはやさしいです。あなたは賢いです。そしてあなたは大切です。	", thisPersonJ = "	キャスリン・ストケット	", thisWordE = "	You is kind. You is smart. You is important	", thisPersonE = "	Kathryn Stockett	")
+        clsWise[	75	] = ClassWise( thisWord = "	나는 사랑은 영원하다는 시인들의 경험이 옳다는 것을 알고 있습니다.	", thisPerson = "	E. M. 포스터	", thisCategory = 	3	, thisWordJ = "	私は「愛は永遠である」と言う詩人達の経験が正しい事を知っています。	", thisPersonJ = "	E・M・フォースター	", thisWordE = "	I know by experience that the poets are right: love is eternal.	", thisPersonE = "	E. M. Forster	")
+        clsWise[	76	] = ClassWise( thisWord = "	중력은 사랑에 떨어지고 마는 사람들에게는 책임이 없다.	", thisPerson = "	알베르트 아인슈타인	", thisCategory = 	3	, thisWordJ = "	重力は恋に落ちる人達には責任がない。	", thisPersonJ = "	アルベルト・アインシュタイン	", thisWordE = "	Gravitation is not responsible for people falling in love.	", thisPersonE = "	Albert Einstein	")
+        clsWise[	77	] = ClassWise( thisWord = "	당신이 장미를 위해 쓴 시간이 당신의 장미를 중요하게 만듭니다.	", thisPerson = "	앙투안 드 생텍쥐페리	", thisCategory = 	3	, thisWordJ = "	あなたがバラの花のために使った時間が、あなたのバラの花を大切なものに変えます。	", thisPersonJ = "	アントワーヌ・ド・サン＝テグジュペリ	", thisWordE = "	It is the time you have wasted for your rose that makes your rose so important.	", thisPersonE = "	Antoine de Saint-Exupéry	")
+        clsWise[	78	] = ClassWise( thisWord = "	사랑은 철자로 쓰는 게 아냐... 너는 그것을 느껴야 해	", thisPerson = "	(곰돌이 푸) 푸	", thisCategory = 	3	, thisWordJ = "	愛は書くのじゃない…君はそれを感じないと駄目なの。	", thisPersonJ = "	『クマのプーさん』プー	", thisWordE = "	You don't spell it(Love)...you feel it.	", thisPersonE = "	(Winnie-the-Pooh) Pooh	")
+        clsWise[	79	] = ClassWise( thisWord = "	우리는 사랑을 만들지 않을 것이다, 사랑이 우리를 만들 것이다.	", thisPerson = "	훌리오 코르타사르	", thisCategory = 	3	, thisWordJ = "	私達は愛を作らない、愛が私達を作る。	", thisPersonJ = "	フリオ・コルタサル	", thisWordE = "	We won't make Love, Love will make us.	", thisPersonE = "	Julio Cortázar	")
 
         Log.d("wiseDGP", "[gp001][MainActivity][here] 명언 초기화")
 

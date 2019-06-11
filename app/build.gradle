@@ -10,8 +10,8 @@ android {
         applicationId 'bplant.gp.wisedoinggit'
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 16
+        versionName "0.16"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

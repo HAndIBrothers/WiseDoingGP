@@ -9,10 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_wisedoinggp_a_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <!-- [AdMob][TestKey:on] Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <!-- [AdMob][TestKey:off] Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
-                android:value="ca-app-pub-3940256099942544~3347511713"/>
+                android:value="ca-app-pub-3020656397306170/6136650559"/>
 
         <activity android:name="bplant.gp.wisedoing_git.MainActivity"
                     android:screenOrientation="portrait">
